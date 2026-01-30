@@ -9,8 +9,12 @@
  * - Or any OpenAI-compatible API endpoint
  */
 
+/* eslint-disable no-console */
+
 import type { GenerateFn } from '../src/modes'
 import type { AgentConfig, MultiAgentSessionState } from '../src/types'
+
+import process from 'node:process'
 
 import { ShortTermMemory } from '../src/memory'
 import { FreedomModeController } from '../src/modes'
@@ -177,8 +181,8 @@ async function runFreedomDemo() {
   // Create session state
   const session = createSessionState()
 
-  // Create world
-  const world = new WorldManager({
+  // Create world (for potential future spatial queries)
+  const _world = new WorldManager({
     bounds: {
       min: { x: -10, y: 0, z: -10 },
       max: { x: 10, y: 5, z: 10 },
@@ -207,14 +211,15 @@ async function runFreedomDemo() {
           console.log(`[${timestamp}] 🚶 ${event.agentId} moved: ${formatPosition(event.from)} → ${formatPosition(event.to)}`)
           break
 
-        case 'agent:activity':
+        case 'agent:activity': {
           const activityStr = event.activity.type === 'walking'
             ? `walking to ${formatPosition(event.activity.destination)}`
             : event.activity.type
           console.log(`[${timestamp}] 🎯 ${event.agentId}: ${activityStr}`)
           break
+        }
 
-        case 'message:sent':
+        case 'message:sent': {
           const agentName = session.agents.get(event.message.fromAgentId)?.config.name ?? event.message.fromAgentId
           const target = event.message.toAgentId
             ? ` → ${session.agents.get(event.message.toAgentId)?.config.name}`
@@ -223,8 +228,9 @@ async function runFreedomDemo() {
           console.log(event.message.content)
           console.log()
           break
+        }
 
-        case 'session:ended':
+        case 'session:ended': {
           console.log(`\n${'='.repeat(50)}`)
           console.log('📊 Session Summary')
           console.log('='.repeat(50))
@@ -237,6 +243,7 @@ async function runFreedomDemo() {
             }
           }
           break
+        }
 
         case 'error':
           console.error(`[${timestamp}] ❌ Error:`, event.error)

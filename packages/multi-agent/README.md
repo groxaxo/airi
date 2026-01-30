@@ -25,7 +25,7 @@ import {
 
 // Create the manager
 const manager = new MultiAgentManager({
-  onEvent: event => console.log('Event:', event.type),
+  onEvent: event => console.info('Event:', event.type),
 })
 
 // Create a session from config

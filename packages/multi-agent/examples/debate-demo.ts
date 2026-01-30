@@ -9,8 +9,12 @@
  * - Or any OpenAI-compatible API endpoint
  */
 
+/* eslint-disable no-console, no-case-declarations */
+
 import type { GenerateFn } from '../src/modes'
 import type { AgentConfig, MultiAgentSessionState } from '../src/types'
+
+import process from 'node:process'
 
 import { ShortTermMemory } from '../src/memory'
 import { DebateModeController } from '../src/modes'

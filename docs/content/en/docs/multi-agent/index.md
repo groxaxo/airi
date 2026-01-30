@@ -84,7 +84,7 @@ const sessionConfig = createSessionFromConfig(config)
 const controller = new DebateModeController({
   session: sessionState,
   generate: yourGenerateFunction,
-  onEvent: event => console.log(event),
+  onEvent: event => console.info(event),
 })
 
 await controller.start()

@@ -64,6 +64,7 @@
     "@proj-airi/font-xiaolai": "workspace:^",
     "@proj-airi/i18n": "workspace:^",
     "@proj-airi/model-driver-lipsync": "workspace:^",
+    "@proj-airi/multi-agent": "workspace:^",
     "@proj-airi/pipelines-audio": "workspace:^",
     "@proj-airi/server-sdk": "workspace:^",
     "@proj-airi/stage-shared": "workspace:^",

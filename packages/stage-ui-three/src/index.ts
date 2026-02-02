@@ -1,4 +1,8 @@
 export { default as ThreeScene } from './components/ThreeScene.vue'
+export { default as MultiAvatarScene } from './components/MultiAvatarScene.vue'
+export { VRMModel } from './components/Model'
+export { OrbitControls } from './components/Controls'
+export { SkyBox } from './components/Environment'
 export * from './composables/hit-test'
 export * from './composables/render-target'
 export { useModelStore } from './stores/model-store'

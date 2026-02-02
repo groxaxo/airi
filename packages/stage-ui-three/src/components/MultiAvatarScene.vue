@@ -46,7 +46,7 @@ interface AvatarData {
   lookAt: Vec3
   eyeHeight: number
   origin: Vec3
-  modelRef: typeof VRMModel | null
+  modelRef: InstanceType<typeof VRMModel> | null
 }
 
 const props = withDefaults(defineProps<{
@@ -228,7 +228,7 @@ defineExpose({
     if (avatarIndex >= 0 && avatarIndex < avatars.length) {
       const avatar = avatars[avatarIndex]
       if (avatar.modelRef) {
-        ;(avatar.modelRef as any).setExpression(expression, intensity)
+        avatar.modelRef.setExpression(expression, intensity)
       }
     }
   },
@@ -242,7 +242,7 @@ defineExpose({
     if (avatarIndex >= 0 && avatarIndex < avatars.length) {
       const avatar = avatars[avatarIndex]
       if (avatar.modelRef) {
-        ;(avatar.modelRef as any).setVrmFrameHook(hook)
+        avatar.modelRef.setVrmFrameHook(hook)
       }
     }
   },
@@ -256,7 +256,7 @@ defineExpose({
     if (avatarIndex >= 0 && avatarIndex < avatars.length) {
       const avatar = avatars[avatarIndex]
       if (avatar.modelRef) {
-        ;(avatar.modelRef as any).lookAtUpdate(target)
+        avatar.modelRef.lookAtUpdate(target)
       }
     }
   },

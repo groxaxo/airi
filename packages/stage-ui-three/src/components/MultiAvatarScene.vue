@@ -338,7 +338,7 @@ defineExpose({
         <VRMModel
           v-for="(avatar, idx) in avatars"
           :key="idx"
-          :ref="(el: any) => { avatar.modelRef = el }"
+          :ref="el => { avatar.modelRef = el as InstanceType<typeof VRMModel> | null }"
           :model-src="avatar.modelSrc"
           :idle-animation="avatar.idleAnimation"
           :model-offset="avatar.offset"

@@ -16,15 +16,16 @@ const sceneRef = ref<InstanceType<typeof MultiAvatarScene>>()
 const sceneReady = ref(false)
 const conversationLog = ref<string[]>([])
 
-// Configure two avatars - update these paths to your actual VRM files
+// Configure two avatars - IMPORTANT: Replace empty modelSrc with actual VRM file paths
+// Example: modelSrc: '/models/avatar1.vrm' or use a URL to a VRM file
 const avatarConfigs = [
   {
-    modelSrc: '/path/to/speaker.vrm', // Replace with actual VRM file path
+    modelSrc: '', // TODO: Replace with actual VRM file path (e.g., '/models/speaker.vrm')
     idleAnimation: new URL('@proj-airi/stage-ui-three/assets/vrm/animations/idle_loop.vrma', import.meta.url).href,
     offset: { x: -0.6, y: 0, z: 0 }, // Position left
   },
   {
-    modelSrc: '/path/to/listener.vrm', // Replace with actual VRM file path
+    modelSrc: '', // TODO: Replace with actual VRM file path (e.g., '/models/listener.vrm')
     idleAnimation: new URL('@proj-airi/stage-ui-three/assets/vrm/animations/idle_loop.vrma', import.meta.url).href,
     offset: { x: 0.6, y: 0, z: 0 }, // Position right
   },

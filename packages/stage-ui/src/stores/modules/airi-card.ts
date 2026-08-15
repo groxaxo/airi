@@ -20,7 +20,8 @@ import { useVisionStore } from './vision'
 
 export type { AiriCard, AiriExtension } from '../../types/airiCard'
 
-function resolveSystemPrompt(card: AiriCard | undefined): string {
+/** Builds the reusable system prompt for any AIRI Card. */
+export function resolveSystemPrompt(card: AiriCard | undefined): string {
   if (!card)
     return ''
 

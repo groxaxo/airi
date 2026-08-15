@@ -465,6 +465,8 @@ onUnmounted(() => {
           <ThreeScene
             v-if="stageModelRenderer === 'vrm'"
             ref="sceneRef"
+            scene-id="mediapipe-model-driver"
+            model-state="shared"
             :model-src="stageModelSelectedUrl"
             :idle-animation="animations.idleLoop.toString()"
             :show-axes="stageViewControlsEnabled"

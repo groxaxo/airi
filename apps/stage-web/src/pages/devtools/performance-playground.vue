@@ -278,6 +278,8 @@ onUnmounted(() => {
         <ThreeScene
           v-if="stageModelRenderer === 'vrm'"
           ref="sceneRef"
+          scene-id="web-performance-playground"
+          model-state="shared"
           :model-src="stageModelSelectedUrl"
           :idle-animation="animations.idleLoop.toString()"
           :current-audio-source="currentAudioSource"

@@ -57,6 +57,18 @@ const props = withDefaults(defineProps<{
   modelSrc?: string
   skyBoxSrc?: string
   /**
+   * Stable identity for traces and scoped VRM resources.
+   */
+  sceneId: string
+  /**
+   * Selects the model-state ownership policy for this scene.
+   *
+   * `shared` connects to the package model store so external stage controls can
+   * update the camera. `isolated` owns its frame and lifecycle state locally so
+   * sibling scenes cannot move or unlock one another.
+   */
+  modelState: 'isolated' | 'shared'
+  /**
    * Enables user-driven OrbitControls camera rotation and zoom.
    *
    * This is controlled by the app shell because orbit gestures conflict with
@@ -106,24 +118,19 @@ const componentState = defineModel<'pending' | 'loading' | 'mounted'>('state', {
 
 const modelStore = useModelStore()
 const {
-  beginSceneBindingTransaction,
-  endSceneBindingTransaction,
-  resetSceneBindingTransactions,
-  setScenePhase,
-} = modelStore
-const {
-  sceneMutationLocked,
-  scenePhase,
-  sceneTransactionDepth,
+  sceneMutationLocked: sharedSceneMutationLocked,
+  scenePhase: sharedScenePhase,
+  sceneTransactionDepth: sharedSceneTransactionDepth,
 
-  lastCommittedModelSrc,
-  modelSize,
-  modelOrigin,
-  modelOffset,
+  lastCommittedModelSrc: sharedLastCommittedModelSrc,
+  modelSize: sharedModelSize,
+  modelOrigin: sharedModelOrigin,
+  modelOffset: sharedModelOffset,
   modelRotationY,
 
-  cameraPosition,
-  cameraDistance,
+  cameraFOV,
+  cameraPosition: sharedCameraPosition,
+  cameraDistance: sharedCameraDistance,
 
   directionalLightPosition,
   directionalLightTarget,
@@ -138,15 +145,70 @@ const {
   hemisphereGroundColor,
   hemisphereLightIntensity,
 
-  lookAtTarget,
+  lookAtTarget: sharedLookAtTarget,
   trackingMode,
-  eyeHeight,
+  eyeHeight: sharedEyeHeight,
   envSelect,
   skyBoxSrc,
   skyBoxIntensity,
   renderScale,
   multisampling,
 } = storeToRefs(modelStore)
+
+// Isolated scenes keep their runtime framing private. Shared scenes expose the
+// package model store to camera controls owned by the surrounding stage.
+const hasIsolatedModelState = props.modelState === 'isolated'
+const localScenePhase = ref<ScenePhase>('pending')
+const localSceneTransactionDepth = ref(0)
+const localLastCommittedModelSrc = ref('')
+const localModelSize = ref<Vec3>({ ...sharedModelSize.value })
+const localModelOrigin = ref<Vec3>({ ...sharedModelOrigin.value })
+const localModelOffset = ref<Vec3>({ ...sharedModelOffset.value })
+const localCameraPosition = ref<Vec3>({ ...sharedCameraPosition.value })
+const localCameraDistance = ref(sharedCameraDistance.value)
+const localLookAtTarget = ref<Vec3>({ ...sharedLookAtTarget.value })
+const localEyeHeight = ref(sharedEyeHeight.value)
+const localSceneMutationLocked = computed(() => localScenePhase.value !== 'mounted' || localSceneTransactionDepth.value > 0)
+
+const scenePhase = hasIsolatedModelState ? localScenePhase : sharedScenePhase
+const sceneTransactionDepth = hasIsolatedModelState ? localSceneTransactionDepth : sharedSceneTransactionDepth
+const sceneMutationLocked = hasIsolatedModelState ? localSceneMutationLocked : sharedSceneMutationLocked
+const lastCommittedModelSrc = hasIsolatedModelState ? localLastCommittedModelSrc : sharedLastCommittedModelSrc
+const modelSize = hasIsolatedModelState ? localModelSize : sharedModelSize
+const modelOrigin = hasIsolatedModelState ? localModelOrigin : sharedModelOrigin
+const modelOffset = hasIsolatedModelState ? localModelOffset : sharedModelOffset
+const cameraPosition = hasIsolatedModelState ? localCameraPosition : sharedCameraPosition
+const cameraDistance = hasIsolatedModelState ? localCameraDistance : sharedCameraDistance
+const lookAtTarget = hasIsolatedModelState ? localLookAtTarget : sharedLookAtTarget
+const eyeHeight = hasIsolatedModelState ? localEyeHeight : sharedEyeHeight
+
+function setScenePhase(phase: ScenePhase) {
+  if (hasIsolatedModelState)
+    localScenePhase.value = phase
+  else
+    modelStore.setScenePhase(phase)
+}
+
+function beginSceneBindingTransaction() {
+  if (hasIsolatedModelState)
+    localSceneTransactionDepth.value += 1
+  else
+    modelStore.beginSceneBindingTransaction()
+}
+
+function endSceneBindingTransaction() {
+  if (hasIsolatedModelState)
+    localSceneTransactionDepth.value = Math.max(0, localSceneTransactionDepth.value - 1)
+  else
+    modelStore.endSceneBindingTransaction()
+}
+
+function resetSceneBindingTransactions() {
+  if (hasIsolatedModelState)
+    localSceneTransactionDepth.value = 0
+  else
+    modelStore.resetSceneBindingTransactions()
+}
 
 type VrmFrameRuntimeHook = (vrm: VRM, delta: number) => void
 
@@ -160,7 +222,7 @@ const screenRef = ref<InstanceType<typeof Screen>>()
 const skyBoxEnvRef = ref<InstanceType<typeof SkyBox>>()
 const dirLightRef = ref<InstanceType<typeof DirectionalLight>>()
 const stageThreeRuntimeTraceContext = getStageThreeRuntimeTraceContext()
-const stageThreeSceneTraceOriginId = `three-scene:${Math.random().toString(36).slice(2, 10)}`
+const stageThreeSceneTraceOriginId = `three-scene:${props.sceneId}`
 const latestScenePhaseTraceCause = ref<SceneTracePhaseCause>('props:model-src')
 const latestSceneTransactionReason = ref<SceneTraceTransactionReason>('unknown')
 const activeModelSrc = ref<string>()
@@ -803,6 +865,9 @@ defineExpose({
         :control-enable="controlEnable"
         :model-size="modelSize"
         :camera-target="modelOrigin"
+        :camera-position="cameraPosition"
+        :camera-distance="cameraDistance"
+        :camera-f-o-v="cameraFOV"
         @orbit-controls-camera-changed="onOrbitControlsCameraChanged"
         @orbit-controls-ready="onOrbitControlsReady"
       />
@@ -840,6 +905,7 @@ defineExpose({
       </Suspense>
       <VRMModel
         ref="modelRef"
+        :cache-scope-key="props.sceneId"
         :current-audio-source="props.currentAudioSource"
         :cursor-position="props.cursorPosition"
         :last-committed-model-src="lastCommittedModelSrc"

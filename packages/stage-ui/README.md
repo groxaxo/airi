@@ -27,6 +27,25 @@ typed event without wrapping their business handler:
 Keep async outcomes, confirmed state changes, impressions, and lifecycle events
 in their owning business flows instead of attaching them to the initial click.
 
+## Dual-conversation stage
+
+The `dual-stage` scene (`src/components/scenes/dual-stage.vue`) runs a live
+conversation between two characters on one stage. Each side has its own VRM
+display model, OpenAI-compatible chat and speech connections, model, and
+voice; credentials stay in Provider settings.
+
+- `src/services/dual-conversation-runtime.ts` — conversation lifecycle
+  (`idle → generating → speaking → … → completed | stopped | failed`), turn
+  streaming, interruption, and abort cleanup
+- `src/stores/dual-conversation-configuration.ts` — per-side configuration
+  and validation (distinct chat/speech connections required per character)
+- `src/stores/dual-conversation.ts` — Pinia store wiring configuration,
+  provider/voice catalogs, and the runtime (`useDualConversationStore`)
+
+A seed message opens the topic; the two characters then continue autonomously
+up to a configurable reply limit. UI strings live under the
+`dual-conversation` key in `packages/i18n` locales.
+
 ## Histoire (UI storyboard)
 
 https://histoire.dev/

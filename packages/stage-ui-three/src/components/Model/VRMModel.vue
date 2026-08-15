@@ -108,6 +108,8 @@ import {
   * - modelRotationY: The rotation of the model (y-axis)
 */
 const props = withDefaults(defineProps<{
+  /** Stable per-scene key used to prevent VRM cache collisions. */
+  cacheScopeKey?: string
   currentAudioSource?: AudioBufferSourceNode
   cursorPosition?: { x: number, y: number }
   lastCommittedModelSrc?: string
@@ -276,7 +278,8 @@ function createManagedVrmInstance(instance: Omit<ManagedVrmInstance, 'modelSrc' 
 }
 
 function getManagedVrmScopeKey() {
-  return typeof window !== 'undefined' ? window.location.href : 'unknown'
+  const pageScope = typeof window !== 'undefined' ? window.location.href : 'unknown'
+  return props.cacheScopeKey ? `${pageScope}::${props.cacheScopeKey}` : pageScope
 }
 
 function getActiveManagedVrmInstance() {

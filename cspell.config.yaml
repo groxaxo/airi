@@ -3,8 +3,10 @@ ignorePaths: []
 dictionaryDefinitions: []
 dictionaries: []
 words:
+  - 433DLLA855
   - acubismmotion
   - Aerisita
+  - aihubmix
   - airi
   - airi-vtuber
   - Alaya
@@ -15,7 +17,9 @@ words:
   - allseto
   - animejs
   - APNG
+  - APPSTORE
   - Armbruster
+  - asar
   - astrojs
   - Attributify
   - attw
@@ -24,9 +28,12 @@ words:
   - autoplay
   - awilix
   - Ayaka
+  - Backquote
   - baichuan
   - baiducloud
   - bailian
+  - Basemove
+  - bestmove
   - bigserial
   - bilibili
   - Bitstream
@@ -39,14 +46,19 @@ words:
   - catppuccin
   - cdylib
   - cerebras
+  - chillroundm
   - cientos
   - cjkfonts
   - clippy
   - clustr
+  - cmdorctrl
+  - codenames
+  - codesign
   - collectblock
   - colorjs
   - cometapi
   - Comfortaa
+  - commandorcontrol
   - composables
   - cooldown
   - coreml
@@ -99,11 +111,15 @@ words:
   - esaxx
   - eventa
   - Factorio
+  - fakemic
   - feaxios
+  - fflate
   - Flathub
   - flexsearch
   - formkit
   - frontmatter
+  - gamelet
+  - gamelets
   - Genshin
   - giteeai
   - gltf
@@ -131,6 +147,8 @@ words:
   - injeca
   - injecta
   - intlify
+  - ITCHIO
+  - itmstransporter
   - jlumbroso
   - jszip
   - Kawaii
@@ -140,11 +158,13 @@ words:
   - kirakira
   - knip
   - kwaa
+  - Landmarker
   - lemonneko
   - lemonnekogh
   - lerp
   - libsamplerate
   - libsodium
+  - libuiohook
   - lightningcss
   - lipsync
   - listhen
@@ -152,12 +172,14 @@ words:
   - live2dcubismframework
   - livechat
   - Llmmarker
+  - lmstudio
   - lobehub
   - logg
   - Lorebook
   - lowpass
   - lucide
   - luoling
+  - lydell
   - Maekawa
   - magnifer
   - Makito
@@ -169,11 +191,14 @@ words:
   - MeshToonMaterial
   - meteocons
   - micvad
+  - MikuMikuDance
   - mineflayer
   - mingcute
   - minimizable
   - minisearch
   - mkdist
+  - mobileprovision
+  - Mocap
   - modelcontextprotocol
   - modnet
   - moeru
@@ -183,6 +208,7 @@ words:
   - msvc
   - multisampling
   - Myriam
+  - napi
   - ndarray
   - Neko
   - nekomeowww
@@ -195,6 +221,7 @@ words:
   - novita
   - nprogress
   - nsis
+  - Nunito
   - nuxi
   - nuxt
   - nuxtjs
@@ -213,6 +240,7 @@ words:
   - otelcol
   - owenthereal
   - oxlint
+  - pbxproj
   - pglite
   - pgvector
   - picklist
@@ -239,6 +267,7 @@ words:
   - rdev
   - rehype
   - reka
+  - remarkablegames
   - Replayable
   - resampler
   - RGBE
@@ -252,6 +281,8 @@ words:
   - safetensors
   - SAVEPOINT
   - Screenable
+  - SDEF
+  - sdkmanager
   - sensenova
   - serde
   - Shadcn
@@ -263,8 +294,10 @@ words:
   - sizecheck
   - smallserial
   - Sniglet
+  - softprops
   - sonarjs
   - sonner
+  - Spacebar
   - specta
   - splitpanes
   - splt
@@ -272,21 +305,29 @@ words:
   - ssml
   - staticlib
   - stepfun
+  - stockfish
   - sumimakito
   - supergroup
   - superjson
   - systempreferences
+  - tachie
   - tamagotchi
   - tauri
   - taze
   - tempora
+  - temurin
+  - testflight
   - tinyexec
   - togetherapi
   - tolist
+  - toon
   - tresjs
   - Triggerable
+  - truncatable
   - tsdown
+  - ttft
   - turborepo
+  - uiohook
   - unbird
   - unbundle
   - unconfig
@@ -295,11 +336,15 @@ words:
   - Unlisten
   - unocss
   - unplugin
+  - unref
   - unspeech
   - upterm
+  - userversion
   - valibot
   - vaul
   - velin
+  - vieval
+  - vishot
   - VITE
   - vitepress
   - vllm
@@ -309,7 +354,7 @@ words:
   - vtuber
   - vueuse
   - waapi
-  - warpdrive
+  - Waifu
   - Warudo
   - wavefile
   - webgpu
@@ -321,6 +366,8 @@ words:
   - worklets
   - xast
   - xastscript
+  - xcarchive
+  - xcodeproj
   - Xenova
   - xiaolai
   - xsai

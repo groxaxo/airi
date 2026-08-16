@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { VoiceInfo } from '../../../stores/providers'
+import type { VoiceInfo } from '../../../stores/providers/provider'
 
-import { FieldCheckbox, FieldSelect } from '@proj-airi/ui'
+import { errorMessageFrom } from '@moeru/std'
+import { FieldCheckbox, FieldCombobox } from '@proj-airi/ui'
 import { computed, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-
-import SpeechStreamingPlayground from './speech-streaming-playground.vue'
 
 import { TestDummyMarker } from '../../gadgets'
 
@@ -19,6 +18,7 @@ const props = defineProps<{
 
   // Current state
   apiKeyConfigured?: boolean
+  voicesLoading?: boolean
 }>()
 
 const { t } = useI18n()
@@ -81,7 +81,7 @@ async function handleGenerateTestSpeech() {
   }
   catch (error) {
     console.error('Error generating speech:', error)
-    errorMessage.value = error instanceof Error ? error.message : 'An unknown error occurred'
+    errorMessage.value = errorMessageFrom(error) ?? 'An unknown error occurred'
   }
   finally {
     isGenerating.value = false
@@ -162,7 +162,7 @@ defineExpose({
         />
       </template>
 
-      <FieldSelect
+      <FieldCombobox
         v-model="selectedVoice"
         :options="voiceOptions"
         :label="t('settings.pages.providers.provider.elevenlabs.playground.fields.field.voice.label')"
@@ -174,8 +174,8 @@ defineExpose({
       <button
         border="neutral-800 dark:neutral-200 solid 2" transition="border duration-250 ease-in-out"
         rounded-lg px-3 text="neutral-100 dark:neutral-900" py-1.5 text-sm
-        :disabled="isGenerating || (!testText.trim() && !useSSML) || (useSSML && !ssmlText.trim()) || !selectedVoice || !apiKeyConfigured"
-        :class="{ 'opacity-50 cursor-not-allowed': isGenerating || (!testText.trim() && !useSSML) || (useSSML && !ssmlText.trim()) || !selectedVoice || !apiKeyConfigured }"
+        :disabled="isGenerating || voicesLoading || (!testText.trim() && !useSSML) || (useSSML && !ssmlText.trim()) || !selectedVoice || !apiKeyConfigured"
+        :class="{ 'opacity-50 cursor-not-allowed': isGenerating || voicesLoading || (!testText.trim() && !useSSML) || (useSSML && !ssmlText.trim()) || !selectedVoice || !apiKeyConfigured }"
         bg="neutral-700 dark:neutral-300" @click="handleGenerateTestSpeech"
       >
         <div flex="~ row" items-center gap-2>
@@ -187,19 +187,13 @@ defineExpose({
       <div v-if="!apiKeyConfigured" class="mt-2 text-sm text-red-500">
         {{ t('settings.pages.providers.provider.elevenlabs.playground.validation.error-missing-api-key') }}
       </div>
-      <div v-if="!selectedVoice" class="mt-2 text-sm text-red-500">
-        {{ t('settings.pages.modules.speech.sections.section.playground.select-voice.required') }}
+      <div v-if="voicesLoading || !selectedVoice" class="mt-2 text-sm text-red-500">
+        {{ voicesLoading ? t('settings.pages.modules.speech.sections.section.playground.select-voice.loading') : t('settings.pages.modules.speech.sections.section.playground.select-voice.required') }}
       </div>
       <div v-if="errorMessage" class="mt-2 text-sm text-red-500">
         {{ errorMessage }}
       </div>
       <audio v-if="audioUrl" ref="audioPlayer" :src="audioUrl" controls class="mt-2 w-full" />
-
-      <SpeechStreamingPlayground
-        :text="testText"
-        :voice="selectedVoice"
-        :generate-speech="generateSpeech"
-      />
     </div>
     <!-- Slot for additional provider-specific UI in the playground -->
     <slot />

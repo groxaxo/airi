@@ -1,14 +1,23 @@
+import type { createContext } from '@moeru/eventa/adapters/electron/main'
+import type { ResizeDirection } from '@proj-airi/electron-eventa'
 import type { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 
-import type { ResizeDirection } from '../../../shared/electron/window'
+import type { I18n } from '../../libs/i18n'
+import type { ServerChannel } from '../../services/airi/channel-server'
 
+import { isRendererUnavailable } from '@proj-airi/electron-vueuse/main'
+import { shell } from 'electron'
 import { isMacOS } from 'std-env'
+
+import { createServerChannelService } from '../../services/airi/channel-server'
+import { createI18nService } from '../../services/airi/i18n'
+import { createAppService, createPowerMonitorService, createScreenService, createSystemPreferencesService, createWindowService } from '../../services/electron'
 
 export function toggleWindowShow(window?: BrowserWindow | null): void {
   if (!window) {
     return
   }
-  if (window.isDestroyed()) {
+  if (isRendererUnavailable(window)) {
     return
   }
 
@@ -27,6 +36,46 @@ export function transparentWindowConfig(): BrowserWindowConstructorOptions {
     transparent: true,
     hasShadow: false,
   }
+}
+
+/**
+ * Blocks renderer navigation while allowing safe links to open in the system browser.
+ *
+ * Use when:
+ * - Creating an Electron window that receives the shared privileged preload
+ *
+ * Expects:
+ * - The window loads only AIRI-controlled renderer content
+ *
+ * Returns:
+ * - Nothing; installs navigation and popup guards on the window's web contents
+ */
+export function protectPrivilegedWindowNavigation(window: BrowserWindow): void {
+  function openSafeExternalUrl(rawUrl: string): void {
+    try {
+      const url = new URL(rawUrl)
+      if (url.protocol === 'http:' || url.protocol === 'https:' || url.protocol === 'mailto:')
+        void shell.openExternal(url.toString())
+    }
+    catch {
+      // Ignore malformed navigation targets.
+    }
+  }
+
+  window.webContents.setWindowOpenHandler((details) => {
+    openSafeExternalUrl(details.url)
+    return { action: 'deny' }
+  })
+  window.webContents.on('will-navigate', (event, navigationUrl) => {
+    // Renderer-initiated reloads keep the exact current URL in both packaged
+    // (`file:`) and Vite (`http:`) builds. Let those through without widening
+    // navigation to other local files or development-server paths.
+    if (navigationUrl === window.webContents.getURL())
+      return
+
+    event.preventDefault()
+    openSafeExternalUrl(navigationUrl)
+  })
 }
 
 export function blurryWindowConfig(): BrowserWindowConstructorOptions {
@@ -80,4 +129,21 @@ export function resizeWindowByDelta(params: {
   }
 
   params.window.setBounds({ x, y, width, height })
+}
+
+export async function setupBaseWindowElectronInvokes(params: {
+  context: ReturnType<typeof createContext>['context']
+  window: BrowserWindow
+  serverChannel: ServerChannel
+  i18n: I18n
+}) {
+  createScreenService({ context: params.context, window: params.window })
+  createWindowService({ context: params.context, window: params.window })
+  createAppService({ context: params.context, window: params.window })
+  createPowerMonitorService({ context: params.context, window: params.window })
+  createSystemPreferencesService({ context: params.context, window: params.window })
+
+  await createI18nService({ context: params.context, window: params.window, i18n: params.i18n })
+
+  createServerChannelService({ serverChannel: params.serverChannel })
 }

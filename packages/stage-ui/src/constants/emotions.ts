@@ -40,11 +40,23 @@ export const EMOTION_VRMExpressionName_value = {
   [Emotion.Angry]: 'angry',
   [Emotion.Think]: 'think',
   [Emotion.Surprise]: 'surprised',
-  [Emotion.Awkward]: undefined,
-  [Emotion.Question]: undefined,
-  [Emotion.Neutral]: undefined,
+  [Emotion.Awkward]: 'neutral',
+  [Emotion.Question]: 'think',
+  [Emotion.Neutral]: 'neutral',
   [Emotion.Curious]: 'think',
 } satisfies Record<Emotion, string | undefined>
+
+export const EMOTION_SpineAnimationName_value = {
+  [Emotion.Happy]: 'celebrate',
+  [Emotion.Sad]: 'sad',
+  [Emotion.Angry]: 'angry',
+  [Emotion.Think]: 'think',
+  [Emotion.Surprise]: 'surprise',
+  [Emotion.Awkward]: 'awkward',
+  [Emotion.Question]: 'question',
+  [Emotion.Neutral]: 'idle',
+  [Emotion.Curious]: 'curious',
+} satisfies Record<Emotion, string>
 
 export interface EmotionPayload {
   name: Emotion

@@ -22,10 +22,16 @@ export interface CharacterSparkNotifyReaction {
 interface StreamingReactionState {
   reaction: CharacterSparkNotifyReaction
   intent: IntentHandle
-  parser: ReturnType<typeof useLlmmarkerParser>
+  parser: ReturnType<ParserFactory>
 }
 
 const MAX_REACTIONS = 200
+type ParserFactory = typeof useLlmmarkerParser
+let parserFactory: ParserFactory = useLlmmarkerParser
+
+export function setCharacterLlmMarkerParserFactoryForTest(factory: ParserFactory | null) {
+  parserFactory = factory ?? useLlmmarkerParser
+}
 
 export const useCharacterStore = defineStore('character', () => {
   const { activeCard, systemPrompt } = storeToRefs(useAiriCardStore())
@@ -44,7 +50,7 @@ export const useCharacterStore = defineStore('character', () => {
       behavior: 'queue',
     })
 
-    const parser = useLlmmarkerParser({
+    const parser = parserFactory({
       onLiteral: async (literal) => {
         if (literal)
           intent.writeLiteral(literal)
@@ -73,13 +79,14 @@ export const useCharacterStore = defineStore('character', () => {
       }) satisfies CharacterSparkNotifyReaction
 
       const intent = speechRuntimeStore.openIntent({
+        turnId: `spark:${sparkEventId}`,
         intentId: `spark:${sparkEventId}`,
         ownerId: ownerId.value,
         priority: 'high',
         behavior: 'interrupt',
       })
 
-      const parser = useLlmmarkerParser({
+      const parser = parserFactory({
         onLiteral: async (literal) => {
           if (literal)
             intent.writeLiteral(literal)

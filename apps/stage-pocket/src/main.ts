@@ -5,6 +5,9 @@ import Tres from '@tresjs/core'
 import NProgress from 'nprogress'
 
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
+import { isEnvTruthy } from '@proj-airi/stage-shared'
+import { trackButtonPlugin } from '@proj-airi/stage-ui/directives/track-button'
+import { configureAnalyticsAdapter } from '@proj-airi/stage-ui/libs/analytics'
 import { MotionPlugin } from '@vueuse/motion'
 import { createPinia } from 'pinia'
 import { setupLayouts } from 'virtual:generated-layouts'
@@ -14,11 +17,9 @@ import { routes } from 'vue-router/auto-routes'
 
 import App from './App.vue'
 
+import { installDeepLinks } from './modules/deep-links'
 import { i18n } from './modules/i18n'
 
-import './modules/posthog'
-
-// eslint-disable-next-line perfectionist/sort-imports
 import '@proj-airi/font-cjkfonts-allseto/index.css'
 import '@proj-airi/font-xiaolai/index.css'
 import '@unocss/reset/tailwind.css'
@@ -27,13 +28,18 @@ import 'vue-sonner/style.css'
 import './styles/main.css'
 import 'uno.css'
 
+configureAnalyticsAdapter(async (options) => {
+  const { createPosthogAdapter } = await import('@proj-airi/stage-ui/libs/analytics/posthog')
+  return createPosthogAdapter(options)
+})
+
 const pinia = createPinia()
 
 // TODO: vite-plugin-vue-layouts is long deprecated, replace with another layout solution
 const routeRecords = setupLayouts(routes as RouteRecordRaw[])
 
 let router: Router
-if (import.meta.env.VITE_APP_TARGET_HUGGINGFACE_SPACE)
+if (isEnvTruthy(import.meta.env.VITE_APP_TARGET_HUGGINGFACE_SPACE))
   router = createRouter({ routes: routeRecords, history: createWebHashHistory() })
 else
   router = createRouter({ routes: routeRecords, history: createWebHistory() })
@@ -51,6 +57,8 @@ window.addEventListener('unhandledrejection', (event) => {
   console.warn('Unhandled rejection:', event.reason)
 })
 
+installDeepLinks(router)
+
 createApp(App)
   .use(MotionPlugin)
   // TODO: Fix autoAnimatePlugin type error
@@ -59,6 +67,7 @@ createApp(App)
   .use(pinia)
   .use(i18n)
   .use(Tres)
+  .use(trackButtonPlugin)
   .mount('#app')
 
 if (import.meta.env.DEV && !import.meta.env.SSR) {

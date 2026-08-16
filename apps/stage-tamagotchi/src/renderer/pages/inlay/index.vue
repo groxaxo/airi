@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import type { BackgroundMaterialType, VibrancyType } from '../../../shared/electron/window'
+import type { BackgroundMaterialType, VibrancyType } from '@proj-airi/electron-eventa'
 
-import { FieldSelect } from '@proj-airi/ui'
+import { electron } from '@proj-airi/electron-eventa'
+import { useElectronEventaInvoke } from '@proj-airi/electron-vueuse'
+import { FieldCombobox } from '@proj-airi/ui'
+import { useAsyncState } from '@vueuse/core'
 import { ref, watch } from 'vue'
 
-import { electron } from '../../../shared/electron'
-import { useElectronEventaInvoke } from '../../composables/electron-vueuse'
-
+const getIsWindows = useElectronEventaInvoke(electron.app.isWindows)
 const setVibrancy = useElectronEventaInvoke(electron.window.setVibrancy)
 const setBackgroundMaterial = useElectronEventaInvoke(electron.window.setBackgroundMaterial)
 
+const { state: isWindows } = useAsyncState(() => getIsWindows(), false)
 const vibrancy = ref<NonNullable<VibrancyType>>()
 const backgroundMaterial = ref<NonNullable<BackgroundMaterialType>>()
 
@@ -41,7 +43,7 @@ watch(
     </div>
 
     <div class="space-y-2">
-      <FieldSelect
+      <FieldCombobox
         v-model="vibrancy"
         label="Vibrancy"
         description="Set the vibrancy effect of the window."
@@ -63,7 +65,8 @@ watch(
         ]"
       />
 
-      <FieldSelect
+      <FieldCombobox
+        v-if="isWindows"
         v-model="backgroundMaterial"
         label="Background Material"
         description="Set the background material of the window."

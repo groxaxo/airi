@@ -9,9 +9,15 @@ const props = withDefaults(defineProps<{
   width: number
   height: number
   resolution?: number
+  maxFps?: number
 }>(), {
   resolution: 2,
+  maxFps: 0,
 })
+
+const emit = defineEmits<{
+  error: [error: Error]
+}>()
 
 const componentState = defineModel<'pending' | 'loading' | 'mounted'>('state', { default: 'pending' })
 
@@ -19,6 +25,13 @@ const containerRef = ref<HTMLDivElement>()
 const isPixiCanvasReady = ref(false)
 const pixiApp = ref<Application>()
 const pixiAppCanvas = ref<HTMLCanvasElement>()
+
+function resolveMaxFps(limit?: number) {
+  if (!limit || limit <= 0)
+    return 0
+
+  return Math.max(1, Math.round(limit))
+}
 
 function installRenderGuard(app: Application) {
   const guardedRender = () => {
@@ -28,11 +41,13 @@ function installRenderGuard(app: Application) {
     catch (error) {
       console.error('[Live2D] Pixi render error.', error)
       app.ticker.stop()
+      emit('error', error instanceof Error ? error : new Error(String(error)))
     }
   }
 
   app.ticker.remove(app.render, app)
   app.ticker.add(guardedRender)
+  app.ticker.maxFPS = resolveMaxFps(props.maxFps)
 }
 
 async function initLive2DPixiStage(parent: HTMLDivElement) {
@@ -82,8 +97,23 @@ function handleResize() {
 }
 
 watch([() => props.width, () => props.height, () => props.resolution], handleResize)
+watch(() => props.maxFps, (limit) => {
+  if (pixiApp.value)
+    pixiApp.value.ticker.maxFPS = resolveMaxFps(limit)
+})
 
-onMounted(async () => containerRef.value && await initLive2DPixiStage(containerRef.value))
+onMounted(async () => {
+  if (!containerRef.value)
+    return
+
+  try {
+    await initLive2DPixiStage(containerRef.value)
+  }
+  catch (error) {
+    console.error('[Live2D] Failed to initialize Pixi stage.', error)
+    emit('error', error instanceof Error ? error : new Error(String(error)))
+  }
+})
 onUnmounted(() => pixiApp.value?.destroy())
 
 async function captureFrame() {
@@ -96,6 +126,7 @@ async function captureFrame() {
     }
     catch (error) {
       console.error('[Live2D] Pixi render error during capture.', error)
+      emit('error', error instanceof Error ? error : new Error(String(error)))
       return resolve(null)
     }
 

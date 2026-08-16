@@ -42,7 +42,8 @@
   "scripts": {
     "dev": "pnpm run build",
     "build": "tsdown",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:run": "vitest run"
   },
   "peerDependencies": {
     "vue": ">=3"
@@ -53,11 +54,10 @@
     }
   },
   "dependencies": {
-    "@alexanderolsen/libsamplerate-js": "^2.1.2"
+    "@alexanderolsen/libsamplerate-js": "catalog:",
+    "@moeru/std": "catalog:"
   },
   "devDependencies": {
-    "@moeru/std": "catalog:",
-    "@types/audioworklet": "^0.0.93",
-    "vite": "catalog:"
+    "@types/audioworklet": "catalog:"
   }
 }

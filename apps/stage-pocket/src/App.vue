@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { OnboardingDialog, ToasterRoot } from '@proj-airi/stage-ui/components'
-import { useSharedAnalyticsStore } from '@proj-airi/stage-ui/stores/analytics'
+import { OnboardingDialog, OnboardingStepAnalyticsNotice, ToasterRoot } from '@proj-airi/stage-ui/components'
+import { useAuthProviderSync } from '@proj-airi/stage-ui/composables/use-auth-provider-sync'
+import { initializeAnalytics, isAnalyticsAvailableInBuild } from '@proj-airi/stage-ui/libs/analytics'
 import { useCharacterOrchestratorStore } from '@proj-airi/stage-ui/stores/character'
 import { useDisplayModelsStore } from '@proj-airi/stage-ui/stores/display-models'
 import { useModsServerChannelStore } from '@proj-airi/stage-ui/stores/mods/api/channel-server'
 import { useContextBridgeStore } from '@proj-airi/stage-ui/stores/mods/api/context-bridge'
 import { useAiriCardStore } from '@proj-airi/stage-ui/stores/modules/airi-card'
 import { useOnboardingStore } from '@proj-airi/stage-ui/stores/onboarding'
-import { useSettings } from '@proj-airi/stage-ui/stores/settings'
+import { useSettings, useSettingsAudioDevice } from '@proj-airi/stage-ui/stores/settings'
 import { useTheme } from '@proj-airi/ui'
 import { StageTransitionGroup } from '@proj-airi/ui-transitions'
 import { storeToRefs } from 'pinia'
@@ -15,6 +16,12 @@ import { computed, onMounted, onUnmounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RouterView } from 'vue-router'
 import { toast, Toaster } from 'vue-sonner'
+
+import OnboardingPermissionsStep from './components/onboarding/step-permissions.vue'
+
+import { getHostWebSocketConnector } from './modules/websocket-bridge'
+
+useAuthProviderSync()
 
 const contextBridgeStore = useContextBridgeStore()
 const i18n = useI18n()
@@ -24,10 +31,10 @@ const settings = storeToRefs(settingsStore)
 const onboardingStore = useOnboardingStore()
 const serverChannelStore = useModsServerChannelStore()
 const characterOrchestratorStore = useCharacterOrchestratorStore()
-const { shouldShowSetup } = storeToRefs(onboardingStore)
+const settingsAudioDeviceStore = useSettingsAudioDevice()
+const { showingSetup } = storeToRefs(onboardingStore)
 const { isDark } = useTheme()
 const cardStore = useAiriCardStore()
-const analyticsStore = useSharedAnalyticsStore()
 
 const primaryColor = computed(() => {
   return isDark.value
@@ -65,17 +72,24 @@ watch(settings.themeColorsHueDynamic, () => {
 
 // Initialize first-time setup check when app mounts
 onMounted(async () => {
-  analyticsStore.initialize()
+  initializeAnalytics()
+  await displayModelsStore.initialize()
   cardStore.initialize()
 
-  onboardingStore.initializeSetupCheck()
+  if (onboardingStore.needsOnboarding) {
+    onboardingStore.showingSetup = true
+  }
 
-  await serverChannelStore.initialize({ possibleEvents: ['ui:configure'] }).catch(err => console.error('Failed to initialize Mods Server Channel in App.vue:', err))
-  await contextBridgeStore.initialize()
+  await serverChannelStore.initialize({
+    possibleEvents: ['ui:configure'],
+    connector: getHostWebSocketConnector,
+  }).catch(err => console.error('Failed to initialize Mods Server Channel in App.vue:', err))
+  contextBridgeStore.initialize()
   characterOrchestratorStore.initialize()
 
   await displayModelsStore.loadDisplayModelsFromIndexedDB()
   await settingsStore.initializeStageModel()
+  await settingsAudioDeviceStore.initialize()
 })
 
 onUnmounted(() => {
@@ -90,6 +104,18 @@ function handleSetupConfigured() {
 function handleSetupSkipped() {
   onboardingStore.markSetupSkipped()
 }
+
+const extraSteps = computed(() => [
+  ...(
+    isAnalyticsAvailableInBuild()
+      ? [{ id: 'analytics-notice', component: OnboardingStepAnalyticsNotice }]
+      : []
+  ),
+  {
+    id: 'step-permissions',
+    component: OnboardingPermissionsStep,
+  },
+])
 </script>
 
 <template>
@@ -110,12 +136,13 @@ function handleSetupSkipped() {
   </StageTransitionGroup>
 
   <ToasterRoot @close="id => toast.dismiss(id)">
-    <Toaster />
+    <Toaster rich-colors />
   </ToasterRoot>
 
   <!-- First Time Setup Dialog -->
   <OnboardingDialog
-    v-model="shouldShowSetup"
+    v-model="showingSetup"
+    :extra-steps="extraSteps"
     @configured="handleSetupConfigured"
     @skipped="handleSetupSkipped"
   />

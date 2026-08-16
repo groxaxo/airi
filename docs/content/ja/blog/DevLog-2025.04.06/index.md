@@ -45,7 +45,7 @@ import ReLUStickerWow from '../../../en/blog/DevLog-2025.04.06/assets/relu-stick
 
 ### 記憶システム
 
-最近、数ヶ月準備してきた Project AIRI の「記憶アップデート」に備えて、[`telegram-bot`](https://github.com/moeru-ai/airi/tree/main/services/telegram-bot) をリファクタリングしています。
+最近、数ヶ月準備してきた Project AIRI の「記憶アップデート」に備えて、[`telegram-bot`](https://github.com/moeru-ai/airi/tree/main/integrations/telegram-bot) をリファクタリングしています。
 
 実装後の記憶システムを、現在最も先進的で強力かつ堅牢なものにする予定であり、その思想の多くは現実世界の人間の記憶システムから深くインスピレーションを得ています。
 
@@ -124,7 +124,7 @@ export const chatMessagesTable = pgTable('chat_messages', {
 
 次のようなエラーが発生します：
 
-```
+```txt
 ERROR: access method "hnsw" does not exist
 ```
 
@@ -282,20 +282,20 @@ const relevantMessages = await db
 
 非常にシンプルです。鍵となるのは
 
-```
+```ts
 sql<number>`(1 - (${cosineDistance(chatMessagesTable.content_vector_1536, embedding.embedding)}))`
 ```
 
 これを関連度検索として、
 
-```
-gt(similarity, 0.5),
+```ts
+gt(similarity, 0.5)
 ```
 
 これをいわゆる一致度閾値制御として、
 
-```
-.orderBy(desc(sql`similarity`))
+```ts
+query.orderBy(desc(sql`similarity`))
 ```
 
 これをソートの指定に使用します。

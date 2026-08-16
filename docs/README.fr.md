@@ -17,7 +17,7 @@
 <p align="center">Re-création de Neuro-sama, un conteneur d'âme pour waifu / personnages virtuels IA afin de les amener dans notre monde.</p>
 
 <p align="center">
-  [<a href="https://discord.gg/TgQ3Cu2F7A">Rejoindre le serveur Discord</a>] [<a href="https://airi.moeru.ai">Essayez-le</a>] [<a href="https://github.com/moeru-ai/airi/blob/main/docs/README.zh-CN.md">简体中文</a>] [<a href="https://github.com/moeru-ai/airi/blob/main/docs/README.ja-JP.md">日本語</a>] [<a href="https://github.com/moeru-ai/airi/blob/main/docs/README.ru-RU.md">Русский</a>] [<a href="https://github.com/moeru-ai/airi/blob/main/docs/README.vi.md">Tiếng Việt</a>] [<a href="https://github.com/moeru-ai/airi/blob/main/docs/README.fr.md">Français</a>]
+  [<a href="https://discord.gg/TgQ3Cu2F7A">Rejoindre le serveur Discord</a>] [<a href="https://airi.moeru.ai">Essayez-le</a>] [<a href="https://github.com/moeru-ai/airi/blob/main/README.md">English</a>] [<a href="https://github.com/moeru-ai/airi/blob/main/docs/README.zh-CN.md">简体中文</a>] [<a href="https://github.com/moeru-ai/airi/blob/main/docs/README.ja-JP.md">日本語</a>] [<a href="https://github.com/moeru-ai/airi/blob/main/docs/README.ru-RU.md">Русский</a>] [<a href="https://github.com/moeru-ai/airi/blob/main/docs/README.vi.md">Tiếng Việt</a>] [<a href="https://github.com/moeru-ai/airi/blob/main/docs/README.ko-KR.md">한국어</a>]
 </p>
 
 <p align="center">
@@ -30,12 +30,129 @@
   <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=9g00d%2BZS7nORzcJugNNddJ7rCghZTIR7fhXabGwch2S%2BG%2BKGIKwlN1N2nIqkh2jg&busi_data=eyJncm91cENvZGUiOiIxMDU4MTU2Njk3IiwidG9rZW4iOiJmcnkra1hWNFIxNytEcG0zcHRUdVJIaldlRDFxN0dzK080QWtvTEdOQjJkNEY2eUFta1g1clNpbkxSMS9FQWFYIiwidWluIjoiMTI2MDkwNzMzNSJ9&data=b1eJrwn3GVOUh7YIxZ7l9vHQo99HPmRxKPpMKlDCmfzx8Y57IXb2EZCMaOC9rVTd2U558qpNjwUYUWlPHxVHvg&svctype=4&tempid=h5_group_info"><img src="https://img.shields.io/badge/QQ-%2312B7F5?logo=qq&labelColor=FFFFFF"></a>
 </p>
 
+<p float="left" align="center">
+  <!-- readme-section:release-binary-windows -->
+  <a href="https://github.com/moeru-ai/airi/releases/download/v0.11.3/AIRI-0.11.3-windows-x64-setup.exe">
+    <picture>
+      <source
+        width="33%"
+        srcset="./content/public/assets/download-buttons/download-buttons.windows.dark.en-US.avif"
+        media="(prefers-color-scheme: dark)"
+      />
+      <source
+        width="33%"
+        srcset="./content/public/assets/download-buttons/download-buttons.windows.light.en-US.avif"
+        media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+      />
+      <img width="33%" src="./content/public/assets/download-buttons/download-buttons.windows.light.en-US.avif" />
+    </picture>
+  </a>
+  <!-- readme-section:release-binary-macos -->
+  <a href="https://github.com/moeru-ai/airi/releases/download/v0.11.3/AIRI-0.11.3-darwin-arm64.dmg">
+    <picture>
+      <source
+        width="33%"
+        srcset="./content/public/assets/download-buttons/download-buttons.macos.dark.en-US.avif"
+        media="(prefers-color-scheme: dark)"
+      />
+      <source
+        width="33%"
+        srcset="./content/public/assets/download-buttons/download-buttons.macos.light.en-US.avif"
+        media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+      />
+      <img width="33%" src="./content/public/assets/download-buttons/download-buttons.macos.light.en-US.avif" />
+    </picture>
+  </a>
+  <a href="https://github.com/moeru-ai/airi/releases/latest">
+    <picture>
+      <source
+        width="33%"
+        srcset="./content/public/assets/download-buttons/download-buttons.linux.dark.en-US.avif"
+        media="(prefers-color-scheme: dark)"
+      />
+      <source
+        width="33%"
+        srcset="./content/public/assets/download-buttons/download-buttons.linux.light.en-US.avif"
+        media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+      />
+      <img width="33%" src="./content/public/assets/download-buttons/download-buttons.linux.light.en-US.avif" />
+    </picture>
+  </a>
+</p>
+<p float="left" align="center">
+  <a href="https://airi.moeru.ai">
+    <picture>
+      <source
+        width="33%"
+        srcset="./content/public/assets/QR%20code%20button/section.cards.qrcode.dark.en-US.png"
+        media="(prefers-color-scheme: dark)"
+      />
+      <source
+        width="33%"
+        srcset="./content/public/assets/QR%20code%20button/section.cards.qrcode.light.en-US.png"
+        media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+      />
+      <img width="33%" src="./content/public/assets/QR%20code%20button/section.cards.qrcode.light.en-US.png" />
+    </picture>
+  </a>
+  <a href="https://airi.moeru.ai">
+    <picture>
+      <source
+        width="33%"
+        srcset="./content/public/assets/download-buttons/download-buttons.mobile.dark.en-US.avif"
+        media="(prefers-color-scheme: dark)"
+      />
+      <source
+        width="33%"
+        srcset="./content/public/assets/download-buttons/download-buttons.mobile.light.en-US.avif"
+        media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+      />
+      <img width="33%" src="./content/public/assets/download-buttons/download-buttons.mobile.light.en-US.avif" />
+    </picture>
+  </a>
+  <a href="https://airi.moeru.ai">
+    <picture>
+      <source
+        width="33%"
+        srcset="./content/public/assets/download-buttons/download-buttons.browser.dark.en-US.png"
+        media="(prefers-color-scheme: dark)"
+      />
+      <source
+        width="33%"
+        srcset="./content/public/assets/download-buttons/download-buttons.browser.light.en-US.png"
+        media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+      />
+      <img width="33%" src="./content/public/assets/download-buttons/download-buttons.browser.light.en-US.png" />
+    </picture>
+  </a>
+</p>
+
 <p align="center">
   <a href="https://www.producthunt.com/products/airi?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-airi" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=993524&theme=neutral&t=1752696535380" alt="AIRI - Un conteneur d'âmes cyber vivantes, re-création de Neuro-sama | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
   <a href="https://trendshift.io/repositories/14636" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14636" alt="moeru-ai%2Fairi | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </p>
 
 > Fortement inspiré par [Neuro-sama](https://www.youtube.com/@Neurosama)
+
+> [!TIP]
+> Sous Windows, vous pouvez installer AIRI avec [winget](https://learn.microsoft.com/windows/package-manager/winget/) :
+>
+> ```powershell
+> winget install MoeruAI.AIRI
+> ```
+>
+> Ou installer AIRI avec [Scoop](https://scoop.sh/) :
+>
+> ```powershell
+> scoop bucket add airi https://github.com/moeru-ai/airi
+> scoop install airi/airi
+> ```
+>
+> Sous macOS, vous pouvez installer AIRI avec [Homebrew Cask](https://brew.sh/) sans ajouter de tap personnalisé :
+>
+> ```sh
+> brew install --cask airi
+> ```
 
 > [!WARNING]
 > **Attention :** Nous **n'avons pas** de crypto-monnaie ou de token officiel associé à ce projet. Veuillez vérifier les informations et procéder avec prudence.
@@ -60,14 +177,18 @@ Peut-être connaissez-vous déjà [Neuro-sama](https://www.youtube.com/@Neurosam
 
 Ainsi, ce projet AIRI offre une autre possibilité : **vous permettre de posséder votre vie digitale, votre cyber-vie, facilement, partout et à tout moment**.
 
-## Journaux de développement et mises à jour récentes
+## DevLogs et histoires récentes
 
-- [DevLog @ 01.01.2026](https://airi.moeru.ai/docs/en/blog/DevLog-2026.01.01/) du 1er janvier 2026
-- [DevLog @ 20.10.2025](https://airi.moeru.ai/docs/en/blog/DevLog-2025.10.20/) du 20 octobre 2025
-- [DevLog @ 05.08.2025](https://airi.moeru.ai/docs/en/blog/DevLog-2025.08.05/) du 5 août 2025
-- [DevLog @ 01.08.2025](https://airi.moeru.ai/docs/en/blog/DevLog-2025.08.01/) du 1er août 2025
-- [DevLog @ 18.07.2025](https://airi.moeru.ai/docs/en/blog/DevLog-2025.07.18/) du 18 juillet 2025
-- [DreamLog 0x1](https://airi.moeru.ai/docs/en/blog/dreamlog-0x1/) du 16 juin 2025
+- [DevLog @ 2026.03.23 : performances mobiles et exploration des moteurs de jeu](https://airi.moeru.ai/docs/en/blog/DevLog-2026.03.23/) - 23 mars 2026
+- [DevLog @ 2026.03.14 : cycle de vie, cache et observabilité du stage VRM](https://airi.moeru.ai/docs/en/blog/DevLog-2026.03.14/) - 14 mars 2026
+- [DevLog @ 2026.02.16 : collecte de données Dome Keeper et pipeline d'entraînement](https://airi.moeru.ai/docs/en/blog/DevLog-2026.02.16/) - 16 février 2026
+- [DevLog @ 2026.01.01 : AIRI Pocket et expériences de mémoire FlowChat](https://airi.moeru.ai/docs/en/blog/DevLog-2026.01.01/) - 1er janvier 2026
+- [DevLog @ 2025.10.20 : migration vers Electron, nouveaux modèles et mises à jour Moeru AI](https://airi.moeru.ai/docs/en/blog/DevLog-2025.10.20/) - 20 octobre 2025
+- [DevLog @ 2025.08.26 : progrès de la vision pure pour airi-factorio](https://airi.moeru.ai/docs/en/blog/DevLog-2025.08.26/) - 26 août 2025
+- [DevLog @ 2025.08.05 : temps forts de la version AIRI v0.7](https://airi.moeru.ai/docs/en/blog/DevLog-2025.08.05/) - 5 août 2025
+- [DevLog @ 2025.08.01 : animation de texte en streaming et graphèmes composés](https://airi.moeru.ai/docs/en/blog/DevLog-2025.08.01/) - 1er août 2025
+- [DevLog @ 2025.07.18 : repenser airi-factorio avec Factorio Learning Environment](https://airi.moeru.ai/docs/en/blog/DevLog-2025.07.18/) - 18 juillet 2025
+- [DreamLog 0x1 : les origines de Project AIRI](https://airi.moeru.ai/docs/en/blog/DreamLog-0x1/) - 16 juin 2025
 - ...plus sur le [site de documentation](https://airi.moeru.ai/docs)
 
 ## Qu’est-ce qui rend ce projet spécial ?
@@ -107,13 +228,15 @@ Cela signifie qu’**アイリ peut fonctionner sur les navigateurs modernes et 
 >
 > **Si vous êtes intéressé, pourquoi ne pas vous présenter ici ? [Voulez-vous rejoindre AIRI ?](https://github.com/moeru-ai/airi/discussions/33)**
 
-## Progrès actuels
+## Progrès actuels et feuille de route
 
 Capacités :
 
 - [x] Cerveau
   - [x] Jouer à [Minecraft](https://www.minecraft.net)
   - [x] Jouer à [Factorio](https://www.factorio.com) (WIP, mais [PoC et démo disponibles](https://github.com/moeru-ai/airi-factorio))
+  - [x] Jouer à [Kerbal Space Program](https://www.kerbalspaceprogram.com/) (annonce à venir)
+  - [ ] Jouer en coopération à [Helldivers 2](https://www.playstation.com/en-hk/games/helldivers-2/pc/) (WIP)
   - [x] Chat sur [Telegram](https://telegram.org)
   - [x] Chat sur [Discord](https://discord.com)
   - [ ] Mémoire
@@ -126,7 +249,7 @@ Capacités :
   - [x] Reconnaissance vocale côté client
   - [x] Détection de parole côté client
 - [x] Bouche
-  - [x] Synthèse vocale [ElevenLabs](https://elevenlabs.io/)
+  - [x] Synthèse vocale multi-fournisseurs, dont [ElevenLabs](https://elevenlabs.io/), Microsoft/Azure Speech, TTS compatible OpenAI, Alibaba Cloud Model Studio et Kokoro TTS local
 - [x] Corps
   - [x] Support VRM
     - [x] Contrôle du modèle VRM
@@ -171,6 +294,42 @@ Un package Nix pour Tamagotchi est inclus. Pour lancer AIRI avec Nix, assurez-vo
 nix run github:moeru-ai/airi
 ```
 
+### Stage Pocket (version mobile)
+
+Lancez le serveur de développement de la version Web Capacitor :
+
+```shell
+pnpm dev:pocket
+```
+
+Vérifiez l'adresse IP dans la sortie de cette commande :
+
+```shell
+  ROLLDOWN-VITE v7.3.0  ready in 1073 ms
+
+  ➜  Local:   https://localhost:5273/
+  ➜  Network: https://<ip-will-be-here>:5273/
+  ➜  Vue DevTools: Open https://localhost:5273/__devtools__/ as a separate window
+  ➜  Vue DevTools: Press Option(⌥)+Shift(⇧)+D in App to toggle the Vue DevTools
+  ➜  UnoCSS Inspector: https://localhost:5273/__unocss/
+```
+
+Ouvrez le projet Xcode :
+
+```shell
+CAPACITOR_DEV_SERVER_URL=https://<your-ip-address>:5273 pnpm open:ios
+```
+
+Xcode s'ouvrira ensuite, et vous pourrez cliquer sur le bouton "Run" pour lancer l'application sur un iPhone.
+
+Si vous devez connecter le canal serveur de Pocket en mode sans fil, vous devez lancer Tamagotchi avec les droits root :
+
+```shell
+sudo pnpm dev:tamagotchi
+```
+
+Activez ensuite le websocket sécurisé dans `settings/connections` de Tamagotchi.
+
 ### Site de la Documentation
 
 ```shell
@@ -179,7 +338,7 @@ pnpm dev:docs
 
 ### Publier
 
-Merci de mettre à jour la version dans `Cargo.toml` après avoir exécuté `bumpp` :
+Exécutez `bumpp` pour mettre à jour la version du monorepo :
 
 ```shell
 npx bumpp --no-commit --no-tag
@@ -187,24 +346,25 @@ npx bumpp --no-commit --no-tag
 
 ## Support des fournisseurs d'API LLM suivants (propulsé par [xsai](https://github.com/moeru-ai/xsai))
 
-- [x] [302.AI](https://share.302.ai/514k2v)
+- [x] [AIHubMix (recommended)](https://aihubmix.com/?aff=OOiX)
 - [x] [OpenRouter](https://openrouter.ai/)
 - [x] [vLLM](https://github.com/vllm-project/vllm)
 - [x] [SGLang](https://github.com/sgl-project/sglang)
 - [x] [Ollama](https://github.com/ollama/ollama)
-- [x] [Google Gemini](https://developers.generativeai.google)
+- [x] [302.AI (sponsored)](https://share.302.ai/514k2v)
 - [x] [OpenAI](https://platform.openai.com/docs/guides/gpt/chat-completions-api)
   - [ ] [Azure OpenAI API](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference) (PR bienvenue)
 - [x] [Anthropic Claude](https://anthropic.com)
   - [ ] [AWS Claude](https://docs.anthropic.com/en/api/claude-on-amazon-bedrock) (PR bienvenue)
 - [x] [DeepSeek](https://www.deepseek.com/)
 - [x] [Qwen](https://help.aliyun.com/document_detail/2400395.html)
+- [x] [Google Gemini](https://developers.generativeai.google)
 - [x] [xAI](https://x.ai/)
 - [x] [Groq](https://wow.groq.com/)
 - [x] [Mistral](https://mistral.ai/)
 - [x] [Cloudflare Workers AI](https://developers.cloudflare.com/workers-ai/)
 - [x] [Together.ai](https://www.together.ai/)
-- [x] [Fireworks.ai](https://www.together.ai/)
+- [x] [Fireworks.ai](https://fireworks.ai/)
 - [x] [Novita](https://www.novita.ai/)
 - [x] [Zhipu](https://bigmodel.cn)
 - [x] [SiliconFlow](https://cloud.siliconflow.cn/i/rKXmRobW)
@@ -212,10 +372,12 @@ npx bumpp --no-commit --no-tag
 - [x] [Baichuan](https://platform.baichuan-ai.com)
 - [x] [Minimax](https://api.minimax.chat/)
 - [x] [Moonshot AI](https://platform.moonshot.cn/)
+- [x] [ModelScope](https://modelscope.cn/docs/model-service/API-Inference/intro)
 - [x] [Player2](https://player2.game/)
 - [x] [Tencent Cloud](https://cloud.tencent.com/document/product/1729)
 - [ ] [Sparks](https://www.xfyun.cn/doc/spark/Web.html) (PR bienvenue)
 - [ ] [Volcano Engine](https://www.volcengine.com/experience/ark?utm_term=202502dsinvite&ac=DSASUQY5&rc=2QXCA1VI) (PR bienvenue)
+- [x] [Xiaomi Mimo](https://platform.xiaomimimo.com)
 
 ## Sous-projets issus de ce projet
 
@@ -226,7 +388,6 @@ npx bumpp --no-commit --no-tag
 - [WebAI : Chat vocal en temps réel](https://github.com/proj-airi/webai-realtime-voice-chat) : Exemple complet d’implémentation de la voix temps réel de ChatGPT avec VAD + STT + LLM + TTS
 - [`@proj-airi/drizzle-duckdb-wasm`](https://github.com/moeru-ai/airi/tree/main/packages/drizzle-duckdb-wasm/README.md) : Driver Drizzle ORM pour DuckDB WASM
 - [`@proj-airi/duckdb-wasm`](https://github.com/moeru-ai/airi/tree/main/packages/duckdb-wasm/README.md) : Wrapper facile à utiliser pour `@duckdb/duckdb-wasm`
-- [`tauri-plugin-mcp`](https://github.com/moeru-ai/airi/blob/main/crates/tauri-plugin-mcp/README.md) : Plugin Tauri pour interagir avec les serveurs MCP
 - [AIRI Factorio](https://github.com/moeru-ai/airi-factorio) : Permet à AIRI de jouer à Factorio
 - [Factorio RCON API](https://github.com/nekomeowww/factorio-rcon-api) : Wrapper RESTful pour la console headless de Factorio
 - [`autorio`](https://github.com/moeru-ai/airi-factorio/tree/main/packages/autorio) : Bibliothèque d’automatisation pour Factorio
@@ -307,7 +468,6 @@ flowchart TD
   XSAI --> F_AGENT
   XSAI --> MC_AGENT
 
-  Core --> TauriMCP("@proj-airi/tauri-plugin-mcp")
   Memory_PGVector("@proj-airi/memory-pgvector") --> Memory
 
   style Core fill:#f9d4d4,stroke:#333,stroke-width:1px
@@ -343,8 +503,7 @@ flowchart TD
 
 ### Non open source
 
-- https://clips.twitch.tv/WanderingCaringDeerDxCat-Qt55xtiGDSoNmDDr
-  https://www.youtube.com/watch?v=8Giv5mupJNE
+- https://clips.twitch.tv/WanderingCaringDeerDxCat-Qt55xtiGDSoNmDDr https://www.youtube.com/watch?v=8Giv5mupJNE
 - https://clips.twitch.tv/TriangularAthleticBunnySoonerLater-SXpBk1dFso21VcWD
 - https://www.youtube.com/@NOWA_Mirai
 
@@ -361,6 +520,30 @@ flowchart TD
 - [mallorbc/whisper_mic](https://github.com/mallorbc/whisper_mic)
 - [`xsai`](https://github.com/moeru-ai/xsai) : Implémente un bon nombre de packages pour interagir avec des LLM et modèles, similaire à [Vercel AI SDK](https://sdk.vercel.ai/) mais plus léger.
 
+## Sponsors
+
+<p align="center">
+  <strong>Merci de soutenir Project AIRI via OpenCollective, Patreon et Ko-fi.</strong>
+</p>
+
+<p align="center">
+  <img src="./content/public/assets/sponsors/sponsors.svg" alt="Project AIRI supporters" />
+</p>
+
+## Remerciements spéciaux
+
+Un grand merci à tous les contributeurs pour leurs contributions au projet AIRI ❤️
+
+<a href="https://github.com/moeru-ai/airi/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=moeru-ai/airi" />
+</a>
+
 ## Historique des étoiles
 
-[![Graphique historique des étoiles](https://api.star-history.com/svg?repos=moeru-ai/airi&type=Date)](https://www.star-history.com/#moeru-ai/airi&Date)
+<a href="https://star-history.com/#moeru-ai/airi&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=moeru-ai/airi&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=moeru-ai/airi&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=moeru-ai/airi&type=Date" />
+  </picture>
+</a>

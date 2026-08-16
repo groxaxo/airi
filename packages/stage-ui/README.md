@@ -43,8 +43,19 @@ voice; credentials stay in Provider settings.
   provider/voice catalogs, and the runtime (`useDualConversationStore`)
 
 A seed message opens the topic; the two characters then continue autonomously
-up to a configurable reply limit. UI strings live under the
+up to a configurable reply limit (0 = unlimited). UI strings live under the
 `dual-conversation` key in `packages/i18n` locales.
+
+## Multi-agent sessions
+
+`src/composables/use-multi-agent.ts` exposes `useMultiAgent()`, a Vue
+composable that bridges `@proj-airi/multi-agent` sessions with the stage:
+agents draw chat responses from the existing providers store and are
+positioned in the 3D scene through the world manager. It supports the
+conversation, debate, and freedom mode controllers plus short-term memory,
+and surfaces live session state (`sessions`, `activeSessionId`, `isRunning`,
+`currentPhase`) and `MultiAgentEvent` callbacks. See
+`packages/multi-agent/README.md` for the underlying system.
 
 ## Histoire (UI storyboard)
 
